@@ -1,4 +1,4 @@
-#CS4501
+#CS4501-project2
 
 Group member1:
 Name: :Liutong Chen
