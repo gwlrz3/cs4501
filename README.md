@@ -12,7 +12,7 @@ ComputingID: fc5kk
 
 
 
-## Project2:
+## Project2
 
 Topic: University Accommodation office
 
