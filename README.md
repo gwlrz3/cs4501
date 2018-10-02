@@ -1,11 +1,15 @@
 # 2018 Fall CS4501 Project
 
 > Group member 1:
-> Name: :Liutong Chen
+> 
+> Name: Liutong Chen
+> 
 > ComputingID: lc6re
 
 > Group member 2:
+> 
 > Name: Fengxiang Chang
+> 
 > ComputingID: fc5kk
 
 
