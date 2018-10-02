@@ -34,7 +34,7 @@ Description:
 
 
 ## API examples:
-list the halls: /myapp/hall/list
+List the halls: /myapp/hall/list
 
 Create a new hall: /myapp/hall/create
 by POSTing { "name" : "name1", "address" : "add1"}
