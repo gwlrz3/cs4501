@@ -1,10 +1,10 @@
-#CS4501-project2
+# CS4501-project2
 
-Group member1:
+Group member 1:
 Name: :Liutong Chen
 ComputingID: lc6re
 
-Group member2:
+Group member 2:
 Name: Fengxiang Chang
 ComputingID: fc5kk
 
