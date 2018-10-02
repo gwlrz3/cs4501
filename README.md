@@ -1,6 +1,5 @@
-# CS4501-project2
+# 2018 Fall CS4501 Project
 
-##Group
 Group member 1:
 Name: :Liutong Chen
 ComputingID: lc6re
@@ -13,17 +12,16 @@ ComputingID: fc5kk
 
 
 
-##Project2:
-topic: University Accommodation office
+## Project2:
 
-##Models:
+Topic: University Accommodation office
+
+Models:
 
 Student, life advisor, hall manager, hall, room, lease
 
-##Description:
+Description:
 
-Every student has a life advisor
-
-Every student is living in a room recorded by a lease
-
-Every hall has a manager
+Every student has a life advisor;
+Every student is living in a room recorded by a lease;
+Every hall has a manager;
