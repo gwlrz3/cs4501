@@ -26,9 +26,9 @@ Student, life advisor, hall manager, hall, room, lease
 
 Description:
 
-Every student has a life advisor;
-Every student is living in a room recorded by a lease;
-Every hall has a manager;
+> Every student has a life advisor
+> Every student is living in a room recorded by a lease
+> Every hall has a manager
 
 
 ## API examples:
