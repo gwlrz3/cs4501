@@ -1,0 +1,170 @@
+[
+
+	{
+		"model" : "myapp.Hall",
+		"pk" : 1,
+		"fields" : {
+			"name" : "Red",
+			"address" : "Ivy Road"
+		}
+	},
+
+	{
+		"model" : "myapp.Hall",
+		"pk" : 2,
+		"fields" : {
+			"name" : "Blue",
+			"address" : "Sunset Avenue"
+		}
+	},
+
+	{
+		"model" : "myapp.Room",
+		"pk" : 1,
+		"fields" : {
+			"hall" : 1,
+			"room_no" : 100,
+			"price" : 400
+		}
+	},
+
+	{
+		"model" : "myapp.Room",
+		"pk" : 2,
+		"fields" : {
+			"hall" : 1,
+			"room_no" : 101,
+			"price" : 500
+		}
+	},
+
+	{
+		"model" : "myapp.Room",
+		"pk" : 3,
+		"fields" : {
+			"hall" : 2,
+			"room_no" : 700,
+			"price" : 1000
+		}
+	},
+
+	{
+		"model" : "myapp.Room",
+		"pk" : 4,
+		"fields" : {
+			"hall" : 2,
+			"room_no" : 201,
+			"price" : 800
+		}
+	},
+
+	{
+		"model" : "myapp.Advisor",
+		"pk" : 1,
+		"fields" : {
+			"name" : "Jack",
+			"gender" : "male",
+			"birthdate" : "1966-02-03",
+			"address" : "emmet road",
+			"phone_no" : "1029348201",
+			"department" : "CS",
+			"position" : "professor"
+		}
+	},
+
+	{
+		"model" : "myapp.Advisor",
+		"pk" : 2,
+		"fields" : {
+			"name" : "Lucy",
+			"gender" : "female",
+			"birthdate" : "1988-09-15",
+			"address" : "down road",
+			"phone_no" : "5038671038",
+			"department" : "CS",
+			"position" : "professor"
+		}
+	},
+
+	{
+		"model" : "myapp.Manager",
+		"pk" : 1,
+		"fields" : {
+			"name" : "Mike",
+			"gender" : "male",
+			"birthdate" : "1969-11-23",
+			"address" : "whitehead road",
+			"phone_no" : "0593715963",
+			"hall" : 1
+		}
+	},
+
+	{
+		"model" : "myapp.Manager",
+		"pk" : 2,
+		"fields" : {
+			"name" : "June",
+			"gender" : "female",
+			"birthdate" : "1974-12-23",
+			"address" : "whitehead road",
+			"phone_no" : "9673068371",
+			"hall" : 2
+		}
+	},
+
+	{
+		"model" : "myapp.Student",
+		"pk" : 1,
+		"fields" : {
+			"advisor" : 1,
+			"name" : "Bruce",
+			"gender" : "male",
+			"birthdate" : "1995-02-03",
+			"address" : "heavy road",
+			"department" : "CS",
+			"phone_no" : "1048275938"
+		}
+	},
+
+	{
+		"model" : "myapp.Student",
+		"pk" : 2,
+		"fields" : {
+			"advisor" : 2,
+			"name" : "Cindy",
+			"gender" : "female",
+			"birthdate" : "1995-07-11",
+			"address" : "beauty road",
+			"department" : "CE",
+			"phone_no" : "8473619471"
+		}
+	},
+
+	{
+		"model" : "myapp.Lease",
+		"pk" : 1,
+		"fields" : {
+			"student" : 1,
+			"room" : 1,
+			"start_date" : "2018-08-24",
+			"end_date" : "2019-08-24"
+		}
+	},
+
+	{
+		"model" : "myapp.Lease",
+		"pk" : 2,
+		"fields" : {
+			"student" : 2,
+			"room" : 3,
+			"start_date" : "2018-01-20",
+			"end_date" : "2019-01-20"
+		}
+	}
+	
+
+
+
+
+
+]
