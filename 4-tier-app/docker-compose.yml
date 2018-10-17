@@ -6,7 +6,7 @@ models:
   ports:
     - "8001:8000"
   volumes:
-    - /model_layer:/app
+    - ./model_layer:/app
   command: "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes stuff-models/wsgi.py"
 
 exp:
@@ -17,7 +17,7 @@ exp:
   ports:
     - "8002:8000"
   volumes:
-    - /exp_layer:/app
+    - ./exp_layer:/app
   command: "mod_wsgi-express start-server --reload-on-changes stuff-exp/wsgi.py"
 
 web:
@@ -28,5 +28,5 @@ web:
   ports:
     - "8000:8000"
   volumes:
-    - /web_layer:/app
+    - ./web_layer:/app
   command: "mod_wsgi-express start-server --reload-on-changes stuff-web/wsgi.py"
