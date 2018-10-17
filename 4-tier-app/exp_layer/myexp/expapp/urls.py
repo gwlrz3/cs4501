@@ -11,4 +11,5 @@ urlpatterns = [
 	url(r'room/list', views.room_list, name='room_list'),
 	url(r'lease/list', views.lease_list, name='lease_list'),
 
+	url(r'room/mostExpensive', views.most_expensive_rooms, name='room_order'),
 ]
