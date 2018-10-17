@@ -4,7 +4,7 @@ models:
   external_links:
     - mysql:db
   volumes:
-    - ~/cs4501/app:/app
+    - ~ :/app
   ports:
     - "8001:8000"
   command: bash -c "cd /app/myweb && python manage.py makemigrations myapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
