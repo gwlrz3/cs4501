@@ -7,45 +7,44 @@ import urllib.parse
 import json
 
 
-# def most_expensive_rooms(request):
-#     data = models.Room.objects.all()
-#     data_json = serializers.serialize('json', data)
+def home(request):
 
+    return render(request, 'home.html')
 
-def allHall(request):
+def hall(request):
     req = requests.get("http://models-api:8000/modelapp/hall/list")
     resp = req.text
     return HttpResponse(resp, content_type='application/json')
 
 
-def allAdvisor(request):
+def advisor(request):
     req = requests.get("http://models-api:8000/modelapp/advisor/list")
     resp = req.text
     return HttpResponse(resp, content_type='application/json')
 
 
-def allStudent(request):
+def student(request):
     req = urllib.request.Request('http://models-api:8000/modelapp/student/list')
     resp_json = urllib.request.urlopen(req).read().decode('utf-8')
     resp = json.loads(resp_json)
     return HttpResponse(resp, content_type='application/json')
 
 
-def allManager(request):
+def manager(request):
     req = urllib.request.Request('http://models-api:8000/modelapp/manager/list')
     resp_json = urllib.request.urlopen(req).read().decode('utf-8')
     resp = json.loads(resp_json)
     return HttpResponse(resp, content_type='application/json')
 
 
-def allRoom(request):
+def room(request):
     req = urllib.request.Request('http://models-api:8000/modelapp/room/list')
     resp_json = urllib.request.urlopen(req).read().decode('utf-8')
     resp = json.loads(resp_json)
     return HttpResponse(resp, content_type='application/json')
 
 
-def allLease(request):
+def lease(request):
     req = urllib.request.Request('http://models-api:8000/modelapp/lease/list')
     resp_json = urllib.request.urlopen(req).read().decode('utf-8')
     resp = json.loads(resp_json)

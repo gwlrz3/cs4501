@@ -1,7 +1,7 @@
 [
 
 	{
-		"model" : "myapp.Hall",
+		"model" : "modelapp.Hall",
 		"pk" : 1,
 		"fields" : {
 			"name" : "Red",
@@ -10,7 +10,7 @@
 	},
 
 	{
-		"model" : "myapp.Hall",
+		"model" : "modelapp.Hall",
 		"pk" : 2,
 		"fields" : {
 			"name" : "Blue",
@@ -19,7 +19,7 @@
 	},
 
 	{
-		"model" : "myapp.Room",
+		"model" : "modelapp.Room",
 		"pk" : 1,
 		"fields" : {
 			"hall" : 1,
@@ -29,7 +29,7 @@
 	},
 
 	{
-		"model" : "myapp.Room",
+		"model" : "modelapp.Room",
 		"pk" : 2,
 		"fields" : {
 			"hall" : 1,
@@ -39,7 +39,7 @@
 	},
 
 	{
-		"model" : "myapp.Room",
+		"model" : "modelapp.Room",
 		"pk" : 3,
 		"fields" : {
 			"hall" : 2,
@@ -49,7 +49,7 @@
 	},
 
 	{
-		"model" : "myapp.Room",
+		"model" : "modelapp.Room",
 		"pk" : 4,
 		"fields" : {
 			"hall" : 2,
@@ -59,7 +59,7 @@
 	},
 
 	{
-		"model" : "myapp.Advisor",
+		"model" : "modelapp.Advisor",
 		"pk" : 1,
 		"fields" : {
 			"name" : "Jack",
@@ -73,7 +73,7 @@
 	},
 
 	{
-		"model" : "myapp.Advisor",
+		"model" : "modelapp.Advisor",
 		"pk" : 2,
 		"fields" : {
 			"name" : "Lucy",
@@ -87,7 +87,7 @@
 	},
 
 	{
-		"model" : "myapp.Manager",
+		"model" : "modelapp.Manager",
 		"pk" : 1,
 		"fields" : {
 			"name" : "Mike",
@@ -100,7 +100,7 @@
 	},
 
 	{
-		"model" : "myapp.Manager",
+		"model" : "modelapp.Manager",
 		"pk" : 2,
 		"fields" : {
 			"name" : "June",
@@ -113,7 +113,7 @@
 	},
 
 	{
-		"model" : "myapp.Student",
+		"model" : "modelapp.Student",
 		"pk" : 1,
 		"fields" : {
 			"advisor" : 1,
@@ -127,7 +127,7 @@
 	},
 
 	{
-		"model" : "myapp.Student",
+		"model" : "modelapp.Student",
 		"pk" : 2,
 		"fields" : {
 			"advisor" : 2,
@@ -141,7 +141,7 @@
 	},
 
 	{
-		"model" : "myapp.Lease",
+		"model" : "modelapp.Lease",
 		"pk" : 1,
 		"fields" : {
 			"student" : 1,
@@ -152,7 +152,7 @@
 	},
 
 	{
-		"model" : "myapp.Lease",
+		"model" : "modelapp.Lease",
 		"pk" : 2,
 		"fields" : {
 			"student" : 2,
@@ -161,9 +161,6 @@
 			"end_date" : "2019-01-20"
 		}
 	}
-	
-
-
 
 
 

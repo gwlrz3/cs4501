@@ -6,8 +6,8 @@ models:
   ports:
     - "8001:8000"
   volumes:
-    - /model_layer:/app
-  command: "cd /app/mymodel && python manage.py makemigrations mymodel && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes stuff-models/wsgi.py"
+    - ~/cs4501/4-tier-app/model_layer:/app
+  command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
 
 exp:
   image: tp33/django
@@ -17,8 +17,8 @@ exp:
   ports:
     - "8002:8000"
   volumes:
-    - /exp_layer:/app
-  command: "mod_wsgi-express start-server --reload-on-changes stuff-exp/wsgi.py"
+    - ~/cs4501/4-tier-app/exp_layer:/app
+  command: bash -c "mod_wsgi-express start-server --working-directory /app/myexp --reload-on-changes /app/myexp/myexp/wsgi.py"
 
 web:
   image: tp33/django
@@ -28,5 +28,5 @@ web:
   ports:
     - "8000:8000"
   volumes:
-    - /web_layer:/app
-  command: "mod_wsgi-express start-server --reload-on-changes stuff-web/wsgi.py"
+    - ~/cs4501/4-tier-app/web_layer:/app
+  command: bash -c "mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
