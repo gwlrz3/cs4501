@@ -5,7 +5,7 @@ class ListStudentTestCase(TestCase):
 	def setUp(self):
         pass #nothing to set up
 
-     def success_response(self):
+    def success_response(self):
         response = self.client.get('/hall/list')
         self.assertEquals(response.status_code, 200)
 
