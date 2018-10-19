@@ -50,6 +50,3 @@ class Lease(models.Model):
     room = models.ForeignKey(Room, on_delete = models.CASCADE, null = True)
     start_date = models.CharField(max_length = 30)
     end_date = models.CharField(max_length = 30)
-
-
-    
