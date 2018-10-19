@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 
-class ListStudentTestCase(TestCase):
+class ListStudentTest(TestCase):
 	def setUp(self):
         pass #nothing to set up
 
