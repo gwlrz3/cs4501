@@ -8,8 +8,9 @@ import json
 
 
 # def most_expensive_rooms(request):
-#     data = models.Room.objects.all()
+# 	data = models.Room.objects.all().order_by(OrderBy(RawSQL("cast(data->>%s as integer)", ("price",)), descending=True))
 #     data_json = serializers.serialize('json', data)
+#     return HttpResponse(data_json, content_type='application/json')
 
 
 def allHall(request):
@@ -40,6 +41,13 @@ def allRoom(request):
     req = requests.get("http://models-api:8000/modelapp/room/list")
     resp = req.text
     return HttpResponse(resp, content_type='application/json')
+
+
+def sortedRoom(request):
+    req = requests.get("http://models-api:8000/modelapp/room/list")
+    room_json = req.json()
+    sorted_room = sorted(room_json, key=lambda x: x['fields']['price'], reverse=True)
+    return HttpResponse(json.dumps(sorted_room), content_type='application/json')
 
 
 def allLease(request):

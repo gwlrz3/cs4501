@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'showall/student', views.allStudent, name='allStudent'),
     url(r'showall/manager', views.allManager, name='allManager'),
     url(r'showall/room', views.allRoom, name='allRoom'),
+    url(r'showall/room/sorted', views.allRoom, name='sortedRoom'),
     url(r'showall/lease', views.allLease, name='allLease'),
 
 ]
