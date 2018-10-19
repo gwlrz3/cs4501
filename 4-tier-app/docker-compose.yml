@@ -30,3 +30,4 @@ web:
   volumes:
     - ~/cs4501/4-tier-app/web_layer:/app
   command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
+
