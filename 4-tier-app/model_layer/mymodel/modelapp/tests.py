@@ -6,7 +6,7 @@ class ListStudentTestCase(TestCase):
         pass #nothing to set up
 
      def success_response(self):
-        response = self.client.get(reverse('student_list'))
+        response = self.client.get('/hall/list')
         self.assertEquals(response.status_code, 200)
 
     #tearDown method is called after each test
