@@ -11,41 +11,38 @@ def home(request):
 
     return render(request, 'home.html')
 
+
 def hall(request):
-    req = requests.get("http://models-api:8000/modelapp/hall/list")
-    resp = req.text
-    return HttpResponse(resp, content_type='application/json')
+    req = requests.get("http://exp-api:8000/expapp/showall/hall")
+    data = req.json()
+    return render(request, 'hall.html', {'objects': data})
 
 
 def advisor(request):
-    req = requests.get("http://models-api:8000/modelapp/advisor/list")
-    resp = req.text
-    return HttpResponse(resp, content_type='application/json')
+    req = requests.get("http://exp-api:8000/expapp/showall/advisor")
+    data = req.json()
+    return render(request, 'advisor.html', {'objects': data})
 
 
 def student(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/student/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
-    return HttpResponse(resp, content_type='application/json')
+    req = requests.get("http://exp-api:8000/expapp/showall/student")
+    data = req.json()
+    return render(request, 'student.html', {'objects': data})
 
 
 def manager(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/manager/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
-    return HttpResponse(resp, content_type='application/json')
+    req = requests.get("http://exp-api:8000/expapp/showall/manager")
+    data = req.json()
+    return render(request, 'manager.html', {'objects': data})
 
 
 def room(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/room/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
-    return HttpResponse(resp, content_type='application/json')
+    req = requests.get("http://exp-api:8000/expapp/showall/room")
+    data = req.json()
+    return render(request, 'room.html', {'objects': data})
 
 
 def lease(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/lease/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
-    return HttpResponse(resp, content_type='application/json')
+    req = requests.get("http://exp-api:8000/expapp/showall/lease")
+    data = req.json()
+    return render(request, 'lease.html', {'objects': data})

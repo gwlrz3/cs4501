@@ -25,28 +25,24 @@ def allAdvisor(request):
 
 
 def allStudent(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/student/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
+    req = requests.get("http://models-api:8000/modelapp/student/list")
+    resp = req.text
     return HttpResponse(resp, content_type='application/json')
 
 
 def allManager(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/manager/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
+    req = requests.get("http://models-api:8000/modelapp/manager/list")
+    resp = req.text
     return HttpResponse(resp, content_type='application/json')
 
 
 def allRoom(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/room/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
+    req = requests.get("http://models-api:8000/modelapp/room/list")
+    resp = req.text
     return HttpResponse(resp, content_type='application/json')
 
 
 def allLease(request):
-    req = urllib.request.Request('http://models-api:8000/modelapp/lease/list')
-    resp_json = urllib.request.urlopen(req).read().decode('utf-8')
-    resp = json.loads(resp_json)
+    req = requests.get("http://models-api:8000/modelapp/lease/list")
+    resp = req.text
     return HttpResponse(resp, content_type='application/json')
