@@ -18,7 +18,7 @@ exp:
     - "8002:8000"
   volumes:
     - ~/cs4501/4-tier-app/exp_layer:/app
-  command: bash -c "mod_wsgi-express start-server --working-directory /app/myexp --reload-on-changes /app/myexp/myexp/wsgi.py"
+  command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myexp --reload-on-changes /app/myexp/myexp/wsgi.py"
 
 web:
   image: tp33/django
@@ -29,4 +29,4 @@ web:
     - "8000:8000"
   volumes:
     - ~/cs4501/4-tier-app/web_layer:/app
-  command: bash -c "mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
+  command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
