@@ -6,7 +6,7 @@ models:
   ports:
     - "8001:8000"
   volumes:
-    - ~/cs4501/4-tier-app/model_layer:/app
+    - ./model_layer:/app
   command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
 
 exp:
@@ -17,7 +17,7 @@ exp:
   ports:
     - "8002:8000"
   volumes:
-    - ~/cs4501/4-tier-app/exp_layer:/app
+    - ./exp_layer:/app
   command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myexp --reload-on-changes /app/myexp/myexp/wsgi.py"
 
 web:
@@ -28,6 +28,6 @@ web:
   ports:
     - "8000:8000"
   volumes:
-    - ~/cs4501/4-tier-app/web_layer:/app
+    - ./web_layer:/app
   command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
 

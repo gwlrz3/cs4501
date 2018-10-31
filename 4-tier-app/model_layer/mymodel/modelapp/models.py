@@ -50,3 +50,13 @@ class Lease(models.Model):
     room = models.ForeignKey(Room, on_delete = models.CASCADE, null = True)
     start_date = models.CharField(max_length = 30)
     end_date = models.CharField(max_length = 30)
+
+
+class User(models.Model):
+    username = models.CharField(max_length = 10)
+    password = models.CharField(max_length = 15)
+
+class Authenticator(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+    authenticator = models.CharField(max_length = 60)
+    data_created = models.CharField(max_length = 10)
