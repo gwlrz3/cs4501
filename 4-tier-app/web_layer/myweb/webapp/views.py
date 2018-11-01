@@ -13,6 +13,7 @@ def home(request):
 
     if auth:
 
+
         return render(request, 'home.html', {'username': username})
 
     return render(request, 'home.html')
