@@ -61,9 +61,4 @@ def register(request):
     form = forms.UserForm(json.loads(request.body.decode()))
     
 
-def login(request):
-
-def logout(request):
-
-def createListing(request):
 
