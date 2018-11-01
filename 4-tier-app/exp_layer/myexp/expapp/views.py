@@ -79,6 +79,29 @@ def register(request):
         return HttpResponse(resp2, content_type='application/json')
     else:
         return HttpResponse(json.dumps(resp1_json), content_type='application/json')
+
+
+def login(request):
+    data = json.loads(request.body.decode("utf-8"))
+    username = data['username']
+    password = data['password']
+
+    resp1 = requests.post("http://models-api:8000/modelapp/user/authenticate", json = {
+        "username": username,
+        "password": password,
+    })
+    resp1 = resp1.json()
+
+    if resp1["res_code"] == '1':
+        resp2 = requests.post("http://models-api:8000/modelapp/authenticator/create", json={
+            "username": username,
+            "password": password,
+        })
+        resp2 = resp2.json()
+        return HttpResponse(json.dumps(resp2), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps(resp1), content_type='application/json')
+
     
     
 
