@@ -47,37 +47,19 @@ def lease(request):
     data = req.json()
     return render(request, 'lease.html', {'objects': data})
 
+
 def login_page(request):
     return render(request, 'login.html')
 
 
 def register_page(request):
+
     return render(request, 'register.html')
 
 
-# def login(request):
-#     # If we received a GET request instead of a POST request
-#     if request.method == 'GET':
-#         # display the login form page
-#         next = request.GET.get('next') or reverse('home')
-#         return render('login.html', ...)
-#
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = LoginForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/thanks/')
-#
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = NameForm()
-#
-#     return render(request, 'name.html', {'form': form})
+def login(request):
+
+    return render(request, 'name.html')
 
 
 def register(request):
@@ -87,7 +69,7 @@ def register(request):
         form = RegisterForm(request.POST)
         # check whether it's valid:
         if not form.is_valid():
-            return render('register.html')
+            return render(request, 'register.html')
 
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
@@ -100,7 +82,7 @@ def register(request):
         res_json = res.json()
 
         if res_json['res_code'] == 1:
-            return render('test.html')
+            return render(request, 'test.html')
 
-    return render('register.html')
+    return render(request, 'register.html')
 
