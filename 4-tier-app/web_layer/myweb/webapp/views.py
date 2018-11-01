@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpRequest
 from django.core import serializers
 import requests
@@ -7,7 +7,13 @@ from .forms import LoginForm, RegisterForm
 
 import json
 
+
 def home(request):
+    auth = request.COOKIES.get('auth')
+
+    if auth:
+
+        return render(request, 'home.html', {'username': username})
 
     return render(request, 'home.html')
 
@@ -80,8 +86,9 @@ def register(request):
     res_json = res.json()
 
     if res_json['res_code'] == 1:
-        # 要加set cookie
-        return render(request, 'register.html')
+        response = render_to_response('home.html', {'username': username})
+        response.set_cookie("auth", res_json["authenticator"])
+        return response
 
-    return render(request, 'test.html')
+    return render(request, 'register.html')
 

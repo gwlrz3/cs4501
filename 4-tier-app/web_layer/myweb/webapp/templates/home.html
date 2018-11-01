@@ -41,6 +41,16 @@
           <a class="nav-link" href="/webapp/info/lease">Lease Info</a>
         </li>
       </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          {% if username == null %}
+          <a href="/webapp/register_page"><button type="button" class="btn btn-outline-primary my-2 my-sm-0">Register</button></a>
+          <a href="/webapp/login_page"><button type="button" class="btn btn-primary my-2 my-sm-0">Login</button></a>
+          {% else %}
+            {{username}}
+          {% endif %}
+        </li>
+      </ul>
     </div>
   </nav>
 
