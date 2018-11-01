@@ -30,3 +30,18 @@ class LeaseForm(ModelForm):
     class Meta:
         model = models.Lease
         fields = ['student', 'room', 'start_date', 'end_date']
+
+class UserForm(ModelForm):
+    class Meta:
+        model = models.User
+        fields = ['username', 'password']
+
+class AuthenticatorForm(ModelForm):
+    class Meta:
+        model = models.Authenticator
+        fields = ['user', 'authenticator', 'date_created']
+
+class ListingForm(ModelForm):
+    class Meta:
+        model = models.Listing
+        fields = ['user', 'rooms']

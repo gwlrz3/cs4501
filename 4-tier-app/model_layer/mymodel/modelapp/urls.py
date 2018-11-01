@@ -35,5 +35,13 @@ urlpatterns = [
     url(r'lease/update/(?P<pk>\d+)$', views.lease_update, name='lease_update'),
     url(r'lease/delete/(?P<pk>\d+)$', views.lease_delete, name='lease_delete'),
 
+    url(r'user/create', views.user_create, name='user_create'),
+    url(r'user/authenticate', views.user_authenticate, name='user_authenticate'),
+
+    url(r'authenticate/create', views.authenticator_create, name='authenticator_create'),
+    url(r'authenticate/delete', views.authenticator_delete, name='authenticator_delete'),
+
+    url(r'listing/create', views.listing_create, name='listing_create'),
+
 ]
 
