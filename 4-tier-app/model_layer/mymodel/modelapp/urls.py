@@ -37,6 +37,7 @@ urlpatterns = [
 
     url(r'user/list', views.user_list, name='user_list'),
     url(r'user/create', views.user_create, name='user_create'),
+    url(r'user/delete/(?P<pk>\d+)$', views.user_delete, name='user_delete'),
     url(r'user/authenticate', views.user_authenticate, name='user_authenticate'),
 
     url(r'authenticator/create', views.authenticator_create, name='authenticator_create'),

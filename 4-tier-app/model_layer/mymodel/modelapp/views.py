@@ -180,8 +180,19 @@ def lease_update(request, pk):
 
 
 def user_create(request):
-    form = forms.UserForm(json.loads(request.body.decode()))
-    # 这里就要加"用户名已存在"的判断，不存在重复用户名返回1，存在返回-1
+    data = json.loads(request.body.decode())
+    form = forms.UserForm(data)
+    username = data['username']
+    password = data['password']
+
+    u = models.User.objects.filter(username = username).first()
+    if u != None:
+        response = {
+            "res_code": -1,
+            "res_message": "username already exists"
+            }
+        return HttpResponse(json.dumps(response), content_type='application/json')
+
     if form.is_valid():
         form.save()
         response = {
@@ -203,6 +214,12 @@ def user_list(request):
     data_json = serializers.serialize('json', data)
     return HttpResponse(data_json, content_type='application/json')
 
+def user_delete(request, pk):
+    user = get_object_or_404(models.User, pk=pk)
+    if request.method == 'POST':
+        user.delete()
+    return redirect('user/list')
+
 
 def user_authenticate(request):
     form = forms.UserForm(json.loads(request.body.decode()))
@@ -211,7 +228,7 @@ def user_authenticate(request):
             "res_code": '-1',
             "res_message": 'Wrong format of username/password'
             }
-        return HttpResponse(response, content_type='application/json')
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
     user = get_object_or_404(models.User, username = form.cleaned_data['username'])
 
@@ -220,13 +237,13 @@ def user_authenticate(request):
             "res_code": '1',
             "res_message": 'authentication succeeds'
             }
-        return HttpResponse(response, content_type='application/json')
+        return HttpResponse(json.dumps(response), content_type='application/json')
     else:
         response = {
             "res_code": '-1',
             "res_message": 'Wrong password'
             }
-        return HttpResponse(response, content_type='application/json')
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
 
 def authenticator_create(request):
