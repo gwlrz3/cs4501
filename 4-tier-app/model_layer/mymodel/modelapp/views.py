@@ -293,6 +293,16 @@ def authenticator_delete(request, authenticator):
         auth.delete()
 
 
+def retrieve_username_from_auth(request):
+    data = json.loads(request.body.decode("utf-8"))
+    auth_str = data['authenticator']
+    auth = models.Authenticator.obejcts.get(pk = auth_str)
+    username = auth.user.username
+    response = {
+        "username" : username
+    }
+    return HttpResponse(json.dumps(response), content_type='application/json')
+
 
 def listing_create(request):
     form = forms.ListingForm(json.loads(request.body.decode()))
