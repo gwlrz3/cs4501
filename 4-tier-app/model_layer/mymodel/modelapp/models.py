@@ -58,10 +58,9 @@ class User(models.Model):
 
 
 class Authenticator(models.Model):
-    user = models.CharField(max_length = 30)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
     authenticator = models.CharField(primary_key = True, max_length = 60)
     date_created = models.DateTimeField(default=datetime.now)
-    # 我觉得user不用是用户表的pk，也不需要当作外键
 
 class Listing(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
