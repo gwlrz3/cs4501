@@ -195,6 +195,10 @@ def user_create(request):
             }
         return  HttpResponse(response, content_type='application/json')
 
+def user_list(request):
+    data = models.User.objects.all()
+    data_json = serializers.serialize('json', data)
+    return HttpResponse(data_json, content_type='application/json')
 
 
 def user_authenticate(request):

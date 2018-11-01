@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'lease/update/(?P<pk>\d+)$', views.lease_update, name='lease_update'),
     url(r'lease/delete/(?P<pk>\d+)$', views.lease_delete, name='lease_delete'),
 
+    url(r'user/list', views.user_list, name='user_list'),
     url(r'user/create', views.user_create, name='user_create'),
     url(r'user/authenticate', views.user_authenticate, name='user_authenticate'),
 
