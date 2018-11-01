@@ -259,7 +259,7 @@ def authenticator_create(request):
         response = {
             "res_code": -1,
             "res_message": 'authenticator creation fails',
-            "authenticator": ''
+            "authenticator": 'what'
         }
 
     return HttpResponse(json.dumps(response), content_type='application/json')
