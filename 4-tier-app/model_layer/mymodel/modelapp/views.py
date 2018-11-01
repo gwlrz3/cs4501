@@ -237,7 +237,18 @@ def authenticator_create(request):
 
     if auth_form.is_valid():
         auth_form.save()
-    return auth
+        response = {
+            'res_code' : '1',
+            'res_message' : 'authenticator created',
+            'authenticator' : auth
+        }
+    else:
+        response = {
+            'res_code' : '-1',
+            'res_message' : 'authenticator creation fails',
+            'authenticator' : ''
+        }
+    return HttpResponse(response, content_type='application/json')
 
 def authenticator_delete(request, authenticator):
     auth = get_object_or_404(models.Authenticator, pk=authenticator)
