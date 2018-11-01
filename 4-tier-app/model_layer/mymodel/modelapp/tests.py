@@ -37,29 +37,29 @@ class ListLeaseTests(TestCase):
         response = self.client.get('/modelapp/lease/list')
         self.assertEquals(response.status_code, 200)
 
-class CreateUserTests(TestCase):
-    def test_success_response(self):
-        response = self.client.post('/modelapp/user/create', {
-            'username' : 'admin',
-            'password' : '12345',
-        })
-        self.assertEquals(response.status_code, 200)
+# class CreateUserTests(TestCase):
+#     def test_success_response(self):
+#         response = self.client.post('/modelapp/user/create', data = {
+#             'username' : 'admin',
+#             'password' : '12345',
+#         })
+#         self.assertEquals(response.status_code, 200)
 
-class AuthenticateUserTests(TestCase):
-    def test_success_response(self):
-        response = self.client.post('/modelapp/user/authenticate', {
-            'username' : 'admin',
-            'password' : '12345',
-        })
-        self.assertEquals(response.status_code, 200)
+# class AuthenticateUserTests(TestCase):
+#     def test_success_response(self):
+#         response = self.client.post('/modelapp/user/authenticate', data = {
+#             'username' : 'admin',
+#             'password' : '12345',
+#         })
+#         self.assertEquals(response.status_code, 200)
 
-class CreateAuthenticatorTests(TestCase):
-    def test_success_response(self):
-        response = self.client.post('/modelapp/authenticator/create', {
-            'username' : 'admin',
-            'password' : '12345',
-        })
-        self.assertEquals(response.status_code, 200)
+# class CreateAuthenticatorTests(TestCase):
+#     def test_success_response(self):
+#         response = self.client.post('/modelapp/authenticator/create', data = {
+#             'username' : 'admin',
+#             'password' : '12345',
+#         })
+#         self.assertEquals(response.status_code, 200)
 
 # class DeleteAuthenticatorTests(TestCase):
 #     def test_success_response(self):

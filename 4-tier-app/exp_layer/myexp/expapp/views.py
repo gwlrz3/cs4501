@@ -4,7 +4,9 @@ from django.core import serializers
 import requests
 import urllib.parse
 
+
 import json
+from mymodel.modelapp import forms
 
 
 # def most_expensive_rooms(request):
@@ -54,3 +56,14 @@ def allLease(request):
     req = requests.get("http://models-api:8000/modelapp/lease/list")
     resp = req.text
     return HttpResponse(resp, content_type='application/json')
+
+def register(request):
+    form = forms.UserForm(json.loads(request.body.decode()))
+    
+
+def login(request):
+
+def logout(request):
+
+def createListing(request):
+

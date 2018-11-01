@@ -3,10 +3,8 @@ from django.http import HttpResponse, HttpRequest
 from django.core import serializers
 import requests
 import urllib.parse
-import exp_srvc_errors
 
 import json
-
 
 def home(request):
 

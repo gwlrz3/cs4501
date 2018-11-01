@@ -183,17 +183,41 @@ def user_create(request):
     form = forms.UserForm(json.loads(request.body.decode()))
     if form.is_valid():
         form.save()
+        response = {
+            'res_code' : '1',
+            'res_message' : 'registration succeeds'
+            }
+        return  HttpResponse(response, content_type='application/json')
+    else:
+        response = {
+            'res_code' : '-1',
+            'res_message' : 'registration fails'
+            }
+        return  HttpResponse(response, content_type='application/json')
+
 
 
 def user_authenticate(request):
     form = forms.UserForm(json.loads(request.body.decode()))
     if not form.is_valid():
-        return False
+        response = {
+            'res_code' : '-1',
+            'res_message' : 'Wrong format of username/password'
+            }
+        return  HttpResponse(response, content_type='application/json')
     user = get_object_or_404(models.User, username = form.cleaned_data['username'])
     if user.password == form.cleaned_data['password']:
-        return True
+        response = {
+            'res_code' : '1',
+            'res_message' : 'authentication succeeds'
+            }
+        return  HttpResponse(response, content_type='application/json')
     else:
-        return False
+        response = {
+            'res_code' : '-1',
+            'res_message' : 'Wrong password'
+            }
+        return  HttpResponse(response, content_type='application/json')
 
 def authenticator_create(request):
     user_form = forms.UserForm(json.loads(request.body.decode()))
@@ -206,8 +230,8 @@ def authenticator_create(request):
     ).hexdigest()
     date = datetime.datetime.now()
     auth_form = forms.AuthenticatorForm({
-        'user_id' : id,
         'authenticator' : auth,
+        'user_id' : id,
         'date_created' : date
     })
 

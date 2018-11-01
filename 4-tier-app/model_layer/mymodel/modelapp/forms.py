@@ -39,7 +39,7 @@ class UserForm(ModelForm):
 class AuthenticatorForm(ModelForm):
     class Meta:
         model = models.Authenticator
-        fields = ['user', 'authenticator', 'date_created']
+        fields = ['authenticator', 'user', 'date_created']
 
 class ListingForm(ModelForm):
     class Meta:
