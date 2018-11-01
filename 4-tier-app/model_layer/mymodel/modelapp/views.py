@@ -213,6 +213,7 @@ def authenticator_create(request):
 
     if auth_form.is_valid():
         auth_form.save()
+    return auth
 
 def authenticator_delete(request, authenticator):
     auth = get_object_or_404(models.Authenticator, pk=authenticator)
