@@ -53,13 +53,15 @@ class Lease(models.Model):
 
 
 class User(models.Model):
-    username = models.CharField(max_length = 10)
-    password = models.CharField(max_length = 15)
+    username = models.CharField(max_length = 30)
+    password = models.CharField(max_length = 30)
+
 
 class Authenticator(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+    user = models.CharField(max_length = 30)
     authenticator = models.CharField(primary_key = True, max_length = 60)
     date_created = models.DateTimeField(default=datetime.now)
+    # 我觉得user不用是用户表的pk，也不需要当作外键
 
 class Listing(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)

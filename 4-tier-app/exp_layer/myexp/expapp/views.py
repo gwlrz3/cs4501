@@ -6,7 +6,6 @@ import urllib.parse
 
 
 import json
-from mymodel.modelapp import forms
 
 
 # def most_expensive_rooms(request):
@@ -57,30 +56,29 @@ def allLease(request):
     resp = resp.text
     return HttpResponse(resp, content_type='application/json')
 
-def register(request):
-    form = forms.UserForm(json.loads(request.body.decode()))
-    username = form.cleaned_data['username']
-    password = form.cleaned_data['password']
-    resp1 = requests.post("http://models-api:8000/modelapp/user/create", json = {
-        'username' : username,
-        'password' : password,
-    })
-    resp1 = resp1.json()
 
-    if resp1['res_code'] == 1:
-        resp2 = requests.post("http://models-api:8000/modelapp/authenticator/create", json = {
-        'username' : username,
-        'password' : password,
+def register(request):
+    data = json.loads(request.body.decode("utf-8"))
+    username = data['username']
+    password = data['password']
+
+    resp1 = requests.post("http://models-api:8000/modelapp/user/create", json={
+        "username": username,
+        "password": password,
+    })
+
+    resp1 = resp1.json()
+    # 这里的判断是用户名是否重复，写入是否成功，成功了搞authenticator
+    if resp1["res_code"] == 1:
+        resp2 = requests.post("http://models-api:8000/modelapp/authenticator/create", json={
+            "username": username,
+            "password": password,
         })
         resp2 = resp2.json()
-        return HttpResponse(resp2, content_type='application/json')
+
+        return HttpResponse(json.dumps(resp2), content_type='application/json')
     else:
-        response = {
-            'res_code' : '-1',
-            'res_message' : 'authenticator creation fails',
-            'authenticator' : ''
-        }
-        return HttpResponse(response, content_type='application/json')
+        return HttpResponse(json.dumps(resp1), content_type='application/json')
     
     
 

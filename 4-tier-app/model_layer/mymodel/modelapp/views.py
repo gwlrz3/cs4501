@@ -58,6 +58,7 @@ def advisor_delete(request, pk):
         advisor.delete()
     return redirect('advisor/list')
 
+
 def advisor_update(request, pk):
     advisor = get_object_or_404(models.Advisor, pk=pk)
     form = forms.AdvisorForm(json.loads(request.body.decode()), instance = advisor)
@@ -180,19 +181,22 @@ def lease_update(request, pk):
 
 def user_create(request):
     form = forms.UserForm(json.loads(request.body.decode()))
+    # 这里就要加"用户名已存在"的判断，不存在重复用户名返回1，存在返回-1
     if form.is_valid():
         form.save()
         response = {
-            'res_code' : '1',
-            'res_message' : 'registration succeeds'
+            "res_code": 1,
+            "res_message": "registration succeeds"
             }
-        return  HttpResponse(response, content_type='application/json')
+        return HttpResponse(json.dumps(response), content_type='application/json')
+
     else:
         response = {
-            'res_code' : '-1',
-            'res_message' : 'registration fails'
+            "res_code": -1,
+            "res_message": "registration fails"
             }
-        return  HttpResponse(response, content_type='application/json')
+        return HttpResponse(json.dumps(response), content_type='application/json')
+
 
 def user_list(request):
     data = models.User.objects.all()
@@ -204,59 +208,68 @@ def user_authenticate(request):
     form = forms.UserForm(json.loads(request.body.decode()))
     if not form.is_valid():
         response = {
-            'res_code' : '-1',
-            'res_message' : 'Wrong format of username/password'
+            "res_code": '-1',
+            "res_message": 'Wrong format of username/password'
             }
-        return  HttpResponse(response, content_type='application/json')
+        return HttpResponse(response, content_type='application/json')
+
     user = get_object_or_404(models.User, username = form.cleaned_data['username'])
+
     if user.password == form.cleaned_data['password']:
         response = {
-            'res_code' : '1',
-            'res_message' : 'authentication succeeds'
+            "res_code": '1',
+            "res_message": 'authentication succeeds'
             }
-        return  HttpResponse(response, content_type='application/json')
+        return HttpResponse(response, content_type='application/json')
     else:
         response = {
-            'res_code' : '-1',
-            'res_message' : 'Wrong password'
+            "res_code": '-1',
+            "res_message": 'Wrong password'
             }
-        return  HttpResponse(response, content_type='application/json')
+        return HttpResponse(response, content_type='application/json')
+
 
 def authenticator_create(request):
-    user_form = forms.UserForm(json.loads(request.body.decode()))
-    user = get_object_or_404(models.User, username = user_form.cleaned_data['username'])
-    id = user.user_id
+    data = json.loads(request.body.decode("utf-8"))
+    user = get_object_or_404(models.User, username=data["username"])
+    uid = user.username
+
     auth = hmac.new(
-        key = settings.SECRET_KEY.encode('utf-8'),
-        msg = os.urandom(32),
-        digestmod = 'sha256',
+        key=settings.SECRET_KEY.encode('utf-8'),
+        msg=os.urandom(32),
+        digestmod='sha256',
     ).hexdigest()
+
     date = datetime.datetime.now()
+
     auth_form = forms.AuthenticatorForm({
-        'authenticator' : auth,
-        'user_id' : id,
-        'date_created' : date
+        "authenticator": auth,
+        "user": uid,
+        "date_created": date
     })
 
     if auth_form.is_valid():
         auth_form.save()
         response = {
-            'res_code' : '1',
-            'res_message' : 'authenticator created',
-            'authenticator' : auth
+            "res_code": 1,
+            "res_message": 'authenticator created',
+            "authenticator": auth
         }
     else:
         response = {
-            'res_code' : '-1',
-            'res_message' : 'authenticator creation fails',
-            'authenticator' : ''
+            "res_code": -1,
+            "res_message": 'authenticator creation fails',
+            "authenticator": ''
         }
-    return HttpResponse(response, content_type='application/json')
+
+    return HttpResponse(json.dumps(response), content_type='application/json')
+
 
 def authenticator_delete(request, authenticator):
     auth = get_object_or_404(models.Authenticator, pk=authenticator)
     if request.method == 'POST':
         auth.delete()
+
 
 def listing_create(request):
     form = forms.ListingForm(json.loads(request.body.decode()))

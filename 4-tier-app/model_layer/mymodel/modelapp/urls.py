@@ -39,8 +39,8 @@ urlpatterns = [
     url(r'user/create', views.user_create, name='user_create'),
     url(r'user/authenticate', views.user_authenticate, name='user_authenticate'),
 
-    url(r'authenticate/create', views.authenticator_create, name='authenticator_create'),
-    url(r'authenticate/delete', views.authenticator_delete, name='authenticator_delete'),
+    url(r'authenticator/create', views.authenticator_create, name='authenticator_create'),
+    url(r'authenticator/delete', views.authenticator_delete, name='authenticator_delete'),
 
     url(r'listing/create', views.listing_create, name='listing_create'),
 

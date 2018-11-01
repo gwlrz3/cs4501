@@ -64,25 +64,24 @@ def login(request):
 
 def register(request):
 
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = RegisterForm(request.POST)
-        # check whether it's valid:
-        if not form.is_valid():
-            return render(request, 'register.html')
+    form = RegisterForm(request.POST)
+    # check whether it's valid:
+    if not form.is_valid():
+        return render(request, 'register.html')
 
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
+    username = form.cleaned_data["username"]
+    password = form.cleaned_data["password"]
 
-        res = requests.post("http://exp-api:8000/expapp/register", json={
-            'username': username,
-            'password': password
-        })
+    res = requests.post("http://exp-api:8000/expapp/register", json={
+        "username": username,
+        "password": password
+    })
 
-        res_json = res.json()
+    res_json = res.json()
 
-        if res_json['res_code'] == 1:
-            return render(request, 'test.html')
+    if res_json['res_code'] == 1:
+        # 要加set cookie
+        return render(request, 'register.html')
 
-    return render(request, 'register.html')
+    return render(request, 'test.html')
 
