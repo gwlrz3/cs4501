@@ -293,6 +293,7 @@ def authenticator_delete(request, authenticator):
         auth.delete()
 
 
+
 def listing_create(request):
     form = forms.ListingForm(json.loads(request.body.decode()))
     if form.is_valid():
