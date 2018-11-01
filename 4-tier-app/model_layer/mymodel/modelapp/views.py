@@ -232,7 +232,7 @@ def user_authenticate(request):
 def authenticator_create(request):
     data = json.loads(request.body.decode("utf-8"))
     user = get_object_or_404(models.User, username=data["username"])
-    uid = user.username
+    uid = user.id
 
     auth = hmac.new(
         key=settings.SECRET_KEY.encode('utf-8'),
@@ -243,7 +243,7 @@ def authenticator_create(request):
     date = datetime.datetime.now()
 
     auth_form = forms.AuthenticatorForm({
-        "authenticator": auth,
+        "authenticator": str(auth),
         "user": uid,
         "date_created": date
     })
@@ -252,14 +252,14 @@ def authenticator_create(request):
         auth_form.save()
         response = {
             "res_code": 1,
-            "res_message": 'authenticator created',
+            "res_message": "authenticator created",
             "authenticator": auth
         }
     else:
         response = {
             "res_code": -1,
-            "res_message": 'authenticator creation fails',
-            "authenticator": 'what'
+            "res_message": "authenticator creation fails",
+            "authenticator": ""
         }
 
     return HttpResponse(json.dumps(response), content_type='application/json')
