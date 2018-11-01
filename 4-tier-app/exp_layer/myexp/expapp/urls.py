@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'showall/room/sorted', views.allRoom, name='sortedRoom'),
     url(r'showall/lease', views.allLease, name='allLease'),
 
+    url(r'register', views.register, name='register'),
+
 
 
 
