@@ -5,11 +5,10 @@ from django.core import serializers
 from modelapp import models
 from modelapp import forms
 import json
-import settings
+from django.conf import settings
 import os
 import hmac
 import datetime
-
 
 
 def hall_list(request):

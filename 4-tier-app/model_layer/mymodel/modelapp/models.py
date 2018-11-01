@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.timezone import datetime
 
 class Staff(models.Model):
     name = models.CharField(max_length = 30)
@@ -59,7 +59,7 @@ class User(models.Model):
 class Authenticator(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
     authenticator = models.CharField(primary_key = True, max_length = 60)
-    data_created = models.DateTimeField()
+    date_created = models.DateTimeField(default=datetime.now)
 
 class Listing(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
