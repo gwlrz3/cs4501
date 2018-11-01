@@ -58,5 +58,9 @@ class User(models.Model):
 
 class Authenticator(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
-    authenticator = models.CharField(max_length = 60)
-    data_created = models.CharField(max_length = 10)
+    authenticator = models.CharField(primary_key = True, max_length = 60)
+    data_created = models.DateTimeField()
+
+class Listing(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+    rooms = models.ManyToManyField(Room)
