@@ -40,8 +40,10 @@ urlpatterns = [
     url(r'user/delete/(?P<pk>\d+)$', views.user_delete, name='user_delete'),
     url(r'user/authenticate', views.user_authenticate, name='user_authenticate'),
 
+    url(r'authenticator/list', views.authenticator_list, name='authenticator_list'),
     url(r'authenticator/create', views.authenticator_create, name='authenticator_create'),
-    url(r'authenticator/delete', views.authenticator_delete, name='authenticator_delete'),
+    url(r'authenticator/delete/(?P<pk>\d+)$', views.authenticator_delete, name='authenticator_delete'),
+
 
     url(r'listing/create', views.listing_create, name='listing_create'),
 

@@ -226,7 +226,7 @@ def user_authenticate(request):
     if not form.is_valid():
         response = {
             "res_code": '-1',
-            "res_message": 'Wrong format of username/password'
+            "res_message": 'Wrong form of username/password'
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
 
@@ -245,6 +245,11 @@ def user_authenticate(request):
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
 
+
+def authenticator_list(request):
+    data = models.Authenticator.objects.all()
+    data_json = serializers.serialize('json', data)
+    return HttpResponse(data_json, content_type='application/json')
 
 def authenticator_create(request):
     data = json.loads(request.body.decode("utf-8"))
