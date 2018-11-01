@@ -13,5 +13,4 @@ urlpatterns = [
     url(r'showall/room/sorted', views.allRoom, name='sortedRoom'),
     url(r'showall/lease', views.allLease, name='allLease'),
 
-	url(r'room/mostExpensive', views.most_expensive_rooms, name='room_order'),
 ]
