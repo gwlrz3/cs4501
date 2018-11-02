@@ -44,6 +44,29 @@ def allRoom(request):
     return HttpResponse(resp, content_type='application/json')
 
 
+def addRoom(request):
+    data = json.loads(request.body.decode("utf-8"))
+    hall = data["hall"]
+    room_no = data["room_no"]
+    price = data["price"]
+
+    resp = requests.post("http://models-api:8000/modelapp/room/create", json={
+        "hall": hall,
+        "room_no": room_no,
+        "price": price
+    })
+
+    resp = resp.json()
+
+    if resp["res_code"] == 1:
+        return HttpResponse(json.dumps(resp), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({
+            "res_code": 0,
+            "res_message": "Room Create Fails"
+        }), content_type='application/json')
+
+
 def sortedRoom(request):
     resp = requests.get("http://models-api:8000/modelapp/room/list")
     room_json = resp.json()

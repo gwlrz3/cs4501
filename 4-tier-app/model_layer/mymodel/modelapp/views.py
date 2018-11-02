@@ -131,9 +131,20 @@ def room_list(request):
 
 def room_create(request):
     form = forms.RoomForm(json.loads(request.body.decode()))
+
     if form.is_valid():
         form.save()
-    return redirect('room/list')
+        response = {
+            "res_code": 1,
+            "res_message": "Room Create Successfully"
+        }
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        response = {
+            "res_code": 0,
+            "res_message": "Room Create Fails"
+        }
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
 
 def room_delete(request, pk):

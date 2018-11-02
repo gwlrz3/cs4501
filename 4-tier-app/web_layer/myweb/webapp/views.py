@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpRequest
 from django.core import serializers
 import requests
 import urllib.parse
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, RoomForm
 
 import json
 
@@ -47,6 +47,35 @@ def room(request):
     req = requests.get("http://exp-api:8000/expapp/showall/room")
     data = req.json()
     return render(request, 'room.html', {'objects': data})
+
+
+def room_add(request):
+    auth = request.COOKIES.get('auth')
+
+    if not auth:
+        return redirect('/login_page')
+
+    form = RoomForm(request.POST)
+    # check whether it's valid:
+    if not form.is_valid():
+        return redirect('/info/room')
+
+    hall_no = form.cleaned_data["hall"]
+    room_no = form.cleaned_data["room_no"]
+    price = form.cleaned_data["price"]
+
+    resp = requests.post("http://exp-api:8000/expapp/howall/room/add", json={
+        "hall": hall_no,
+        "room_no": room_no,
+        "price": price
+    })
+
+    resp = resp.json()
+
+    if resp["res_code"] == 0:
+        return redirect('/info/room')
+
+    return redirect('/info/room')
 
 
 def lease(request):
@@ -111,10 +140,14 @@ def register(request):
 
     return render(request, 'register.html')
 
+
 def logout(request):
     auth = request.COOKIES.get('auth')
     resp = requests.post("http://exp-api:8000/expapp/logout", json={"authenticator": auth})
     resp = resp.json()
     if resp['res_code'] == 1:
-        request.delete_cookie("auth")
+        response = render_to_response('home.html')
+        response.delete_cookie("auth")
+        return response
+
     return render(request, 'home.html')
