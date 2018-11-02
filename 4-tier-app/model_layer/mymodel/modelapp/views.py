@@ -188,7 +188,7 @@ def user_create(request):
     u = models.User.objects.filter(username = username).first()
     if u != None:
         response = {
-            "res_code": -1,
+            "res_code": 0,
             "res_message": "username already exists"
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
@@ -203,7 +203,7 @@ def user_create(request):
 
     else:
         response = {
-            "res_code": -1,
+            "res_code": 0,
             "res_message": "registration fails"
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
@@ -225,7 +225,7 @@ def user_authenticate(request):
     form = forms.UserForm(json.loads(request.body.decode()))
     if not form.is_valid():
         response = {
-            "res_code": '-1',
+            "res_code": 0,
             "res_message": 'Wrong form of username/password'
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
@@ -234,13 +234,13 @@ def user_authenticate(request):
 
     if user.password == form.cleaned_data['password']:
         response = {
-            "res_code": '1',
+            "res_code": 1,
             "res_message": 'authentication succeeds'
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
         response = {
-            "res_code": '-1',
+            "res_code": 0,
             "res_message": 'Wrong password'
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
@@ -279,7 +279,7 @@ def authenticator_create(request):
         }
     else:
         response = {
-            "res_code": -1,
+            "res_code": 0,
             "res_message": "authenticator creation fails",
             "authenticator": ""
         }
@@ -296,7 +296,7 @@ def authenticator_delete(request):
     a = models.Authenticator.objects.filter(authenticator = auth_str).first()
     if a != None:
         response = {
-            "res_code": -1,
+            "res_code": 0,
             "res_message": "Fails to delete authenticator"
             }
         return HttpResponse(json.dumps(response), content_type='application/json')

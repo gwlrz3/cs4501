@@ -92,7 +92,7 @@ def login(request):
     })
     resp1 = resp1.json()
 
-    if resp1["res_code"] == '1':
+    if resp1["res_code"] == 1:
         resp2 = requests.post("http://models-api:8000/modelapp/authenticator/create", json={
             "username": username,
             "password": password,
