@@ -111,3 +111,10 @@ def register(request):
 
     return render(request, 'register.html')
 
+def logout(request):
+    auth = request.COOKIES.get('auth')
+    resp = requests.post("http://exp-api:8000/expapp/logout", json={"authenticator": auth})
+    resp = resp.json()
+    if resp['res_code'] == 1:
+        request.delete_cookie("auth")
+    return render(request, 'home.html')
