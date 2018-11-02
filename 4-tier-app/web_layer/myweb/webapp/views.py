@@ -72,7 +72,7 @@ def login(request):
     username = form.cleaned_data["username"]
     password = form.cleaned_data["password"]
 
-    res = requests.post("http://exp-api:8000/expapp/register", json={
+    res = requests.post("http://exp-api:8000/expapp/login", json={
         "username": username,
         "password": password
     })
