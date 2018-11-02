@@ -40,27 +40,27 @@ class ListLeaseTests(TestCase):
         response = self.client.get('/modelapp/lease/list')
         self.assertEquals(response.status_code, 200)
 
-class CreateUserTests(TestCase):
-    def test_success_response(self):
-        response = self.client.post('/modelapp/user/create', data = {
-            'username' : 'admin',
-            'password' : '12345',
-        })
-        self.assertEquals(response.status_code, 200)
-
 class ListUserTests(TestCase):
     def test_success_response(self):
         response = self.client.get('/modelapp/user/list')
         self.assertEquals(response.status_code, 200)
 
-class DeleteUserTests(TestCase):
+class CreateUserTests(TestCase):
     def test_success_response(self):
-        u = models.User()
-        u.username = 'admin'
-        u.password = '12345'
-        u.save()
-        response = self.client.post('/modelapp/user/delete/1')
+        response = self.client.post('/modelapp/user/create', {
+            "username" : "admin",
+            "password" : "12345",
+        }, content_type = 'application/json')
         self.assertEquals(response.status_code, 200)
+
+# class DeleteUserTests(TestCase):
+#     def test_success_response(self):
+#         u = models.User()
+#         u.username = 'admin'
+#         u.password = '12345'
+#         u.save()
+#         response = self.client.post('/modelapp/user/delete/1')
+#         self.assertEquals(response.status_code, 200)
 
 class AuthenticateUserTests(TestCase):
     def test_success_response(self):
@@ -68,10 +68,10 @@ class AuthenticateUserTests(TestCase):
         u.username = 'admin'
         u.password = '12345'
         u.save()
-        response = self.client.post('/modelapp/user/authenticate', data = {
+        response = self.client.post('/modelapp/user/authenticate', {
             'username' : 'admin',
             'password' : '12345',
-        })
+        }, content_type = 'application/json')
         self.assertEquals(response.status_code, 200)
 
 class ListAuthenticatorTests(TestCase):
@@ -81,22 +81,48 @@ class ListAuthenticatorTests(TestCase):
 
 class CreateAuthenticatorTests(TestCase):
     def test_success_response(self):
-        response = self.client.post('/modelapp/authenticator/create', data = {
-            'username' : 'admin',
-            'password' : '12345',
-        })
-        self.assertEquals(response.status_code, 200)
-
-class DeleteAuthenticatorTests(TestCase):
-    def test_success_response(self):
-
+        #create user
         u = models.User()
         u.username = 'admin'
         u.password = '12345'
         u.save()
-        auth = models.Authenticator()
-        auth.user = 1
-        auth.authenticator = 'asdffg'
-        auth.date_created = datetime.datetime.now()
-        response = self.client.post('/modelapp/authenticator/delete/asdffg')
+        response = self.client.post('/modelapp/authenticator/create', {
+            'username' : 'admin',
+            'password' : '12345',
+        }, content_type = 'application/json')
         self.assertEquals(response.status_code, 200)
+
+class DeleteAuthenticatorTests(TestCase):
+    def test_success_response(self):
+        #create user
+        u = models.User()
+        u.username = 'admin'
+        u.password = '12345'
+        u.save()
+        #create authenticator
+        auth = models.Authenticator()
+        auth.authenticator = 'aaa'
+        auth.user = u
+        auth.date_created = datetime.datetime.now()
+        auth.save()
+
+        response = self.client.post('/modelapp/authenticator/delete', {"authenticator" : "aaa"}, content_type = 'application/json')
+        self.assertEquals(response.status_code, 200)
+
+class ReadUserFromAuthTests(TestCase):
+    def test_success_response(self):
+        #create user
+        u = models.User()
+        u.username = 'admin'
+        u.password = '12345'
+        u.save()
+        #create authenticator
+        auth = models.Authenticator()
+        auth.authenticator = 'aaa'
+        auth.user = u
+        auth.date_created = datetime.datetime.now()
+        auth.save()
+        response = self.client.post('/modelapp/authenticator/read_user', {"authenticator" : "aaa"}, content_type = 'application/json')
+        response = response.json()
+        self.assertEquals(response['username'], 'admin')
+
