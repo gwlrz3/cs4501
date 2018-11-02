@@ -12,9 +12,9 @@ def home(request):
     auth = request.COOKIES.get('auth')
 
     if auth:
-
-
-        return render(request, 'home.html', {'username': username})
+        res = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        res = res.json()
+        return render(request, 'home.html', {'username': res["username"]})
 
     return render(request, 'home.html')
 
@@ -60,13 +60,31 @@ def login_page(request):
 
 
 def register_page(request):
-
     return render(request, 'register.html')
 
 
 def login(request):
+    form = LoginForm(request.POST)
+    # check whether it's valid:
+    if not form.is_valid():
+        return render(request, 'login.html')
 
-    return render(request, 'name.html')
+    username = form.cleaned_data["username"]
+    password = form.cleaned_data["password"]
+
+    res = requests.post("http://exp-api:8000/expapp/register", json={
+        "username": username,
+        "password": password
+    })
+
+    res = res.json()
+
+    if res['res_code'] == 1:
+        response = render_to_response('home.html', {'username': username})
+        response.set_cookie("auth", res["authenticator"])
+        return response
+
+    return render(request, 'login.html')
 
 
 def register(request):
@@ -84,11 +102,11 @@ def register(request):
         "password": password
     })
 
-    res_json = res.json()
+    res = res.json()
 
-    if res_json['res_code'] == 1:
+    if res['res_code'] == 1:
         response = render_to_response('home.html', {'username': username})
-        response.set_cookie("auth", res_json["authenticator"])
+        response.set_cookie("auth", res["authenticator"])
         return response
 
     return render(request, 'register.html')

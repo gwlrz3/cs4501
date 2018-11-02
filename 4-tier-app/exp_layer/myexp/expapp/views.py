@@ -102,8 +102,14 @@ def login(request):
     else:
         return HttpResponse(json.dumps(resp1), content_type='application/json')
 
-    
-    
+
+def read_user(request):
+    data = json.loads(request.body.decode("utf-8"))
+    auth = data["authenticator"]
+
+    res = requests.post("http://models-api:8000/modelapp/authenticator/read_user", json={"authenticator": auth})
+
+    return HttpResponse(res, content_type='application/json')
 
 
 

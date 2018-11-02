@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'authenticator/list', views.authenticator_list, name='authenticator_list'),
     url(r'authenticator/create', views.authenticator_create, name='authenticator_create'),
     url(r'authenticator/delete/(?P<pk>\d+)$', views.authenticator_delete, name='authenticator_delete'),
-    url(r'authenticator/readuser', views.retrieve_username_from_auth, name='retrieve_username_from_auth'),
+    url(r'authenticator/read_user', views.retrieve_username_from_auth, name='retrieve_username_from_auth'),
 
     url(r'listing/create', views.listing_create, name='listing_create'),
 
