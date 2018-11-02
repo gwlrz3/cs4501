@@ -287,10 +287,25 @@ def authenticator_create(request):
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 
-def authenticator_delete(request, authenticator):
-    auth = get_object_or_404(models.Authenticator, pk=authenticator)
+def authenticator_delete(request):
+    data = json.loads(request.body.decode("utf-8"))
+    auth_str = data['authenticator']
+    auth = get_object_or_404(models.Authenticator, pk=auth_str)
     if request.method == 'POST':
         auth.delete()
+    a = models.Authenticator.objects.filter(authenticator = auth_str).first()
+    if a != None:
+        response = {
+            "res_code": -1,
+            "res_message": "Fails to delete authenticator"
+            }
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        response = {
+            "res_code": 1,
+            "res_message": "Deletion succeeds"
+            }
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
 
 def retrieve_username_from_auth(request):
@@ -304,10 +319,6 @@ def retrieve_username_from_auth(request):
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 
-def listing_create(request):
-    form = forms.ListingForm(json.loads(request.body.decode()))
-    if form.is_valid():
-        form.save()
 
 
     

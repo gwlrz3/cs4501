@@ -63,6 +63,3 @@ class Authenticator(models.Model):
     date_created = models.DateTimeField(default=datetime.now)
 
 
-class Listing(models.Model):
-    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
-    rooms = models.ManyToManyField(Room)
