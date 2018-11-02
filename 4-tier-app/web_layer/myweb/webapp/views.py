@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response, reverse
 from django.http import HttpResponse, HttpRequest
 from django.core import serializers
 import requests
 import urllib.parse
 from .forms import LoginForm, RegisterForm, RoomForm
-
+from . import views
 import json
 
 
@@ -53,7 +53,7 @@ def room_add(request):
     auth = request.COOKIES.get('auth')
 
     if auth is None:
-        return redirect('/webapp/login_page')
+        return redirect('/webapp/login?next=info/room')
 
     form = RoomForm(request.POST)
     # check whether it's valid:
@@ -84,15 +84,10 @@ def lease(request):
     return render(request, 'lease.html', {'objects': data})
 
 
-def login_page(request):
-    return render(request, 'login.html')
-
-
-def register_page(request):
-    return render(request, 'register.html')
-
-
 def login(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
+
     form = LoginForm(request.POST)
     # check whether it's valid:
     if not form.is_valid():
@@ -107,9 +102,14 @@ def login(request):
     })
 
     res = res.json()
+    # nexturl = request.GET.get('next')
 
     if res['res_code'] == 1:
-        response = render_to_response('home.html', {'username': username})
+        response = redirect('webapp/home', {'username': username})
+
+        # if nexturl == "":
+        #     response = redirect('webapp/' + nexturl)
+
         response.set_cookie("auth", res["authenticator"])
         return response
 
@@ -117,6 +117,8 @@ def login(request):
 
 
 def register(request):
+    if request.method == 'GET':
+        return render(request, 'register.html')
 
     form = RegisterForm(request.POST)
     # check whether it's valid:
