@@ -52,19 +52,19 @@ def room(request):
 def room_add(request):
     auth = request.COOKIES.get('auth')
 
-    if not auth:
-        return redirect('/login_page')
+    if auth is None:
+        return redirect('/webapp/login_page')
 
     form = RoomForm(request.POST)
     # check whether it's valid:
     if not form.is_valid():
-        return redirect('/info/room')
+        return redirect('/webapp/home')
 
     hall_no = form.cleaned_data["hall"]
     room_no = form.cleaned_data["room_no"]
     price = form.cleaned_data["price"]
 
-    resp = requests.post("http://exp-api:8000/expapp/howall/room/add", json={
+    resp = requests.post("http://exp-api:8000/expapp/add/room", json={
         "hall": hall_no,
         "room_no": room_no,
         "price": price
@@ -73,9 +73,9 @@ def room_add(request):
     resp = resp.json()
 
     if resp["res_code"] == 0:
-        return redirect('/info/room')
+        return redirect('webapp/info/room')
 
-    return redirect('/info/room')
+    return redirect('/webapp/info/room')
 
 
 def lease(request):

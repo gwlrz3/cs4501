@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'info/manager', views.manager, name='manager'),
 
     url(r'info/room', views.room, name='room'),
-    url(r'info/room/add', views.room_add, name='add room'),
+    url(r'add/room', views.room_add, name='add_room'),
 
     url(r'info/lease', views.lease, name='lease'),
 
