@@ -111,6 +111,7 @@ def read_user(request):
 
     return HttpResponse(res, content_type='application/json')
 
+
 def logout(request):
     data = json.loads(request.body.decode("utf-8"))
     auth = data["authenticator"]

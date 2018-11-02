@@ -251,6 +251,7 @@ def authenticator_list(request):
     data_json = serializers.serialize('json', data)
     return HttpResponse(data_json, content_type='application/json')
 
+
 def authenticator_create(request):
     data = json.loads(request.body.decode("utf-8"))
     user = get_object_or_404(models.User, username=data["username"])
