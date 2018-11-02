@@ -111,5 +111,12 @@ def read_user(request):
 
     return HttpResponse(res, content_type='application/json')
 
+def logout(request):
+    data = json.loads(request.body.decode("utf-8"))
+    auth = data["authenticator"]
+    resp = requests.post("http://models-api:8000/modelapp/authenticator/delete", json={"authenticator": auth})
+    return HttpResponse(resp, content_type='application/json')
+
+
 
 

@@ -100,8 +100,3 @@ class DeleteAuthenticatorTests(TestCase):
         auth.date_created = datetime.datetime.now()
         response = self.client.post('/modelapp/authenticator/delete/asdffg')
         self.assertEquals(response.status_code, 200)
-
-# class CreateListingTests(TestCase):
-#     def test_success_response(self):
-#         response = self.client.get('/modelapp/listing/create')
-#         self.assertEquals(response.status_code, 200)
