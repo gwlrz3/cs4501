@@ -86,6 +86,7 @@ def lease(request):
 
 def login(request):
     if request.method == 'GET':
+        next = request.GET.get('next')
         return render(request, 'login.html')
 
     form = LoginForm(request.POST)
@@ -102,13 +103,13 @@ def login(request):
     })
 
     res = res.json()
-    # nexturl = request.GET.get('next')
+    next = form.cleaned_data.get('next')
 
     if res['res_code'] == 1:
         response = redirect('webapp/home', {'username': username})
 
-        # if nexturl == "":
-        #     response = redirect('webapp/' + nexturl)
+        if next is not None:
+            response = redirect('webapp/' + str(next))
 
         response.set_cookie("auth", res["authenticator"])
         return response
