@@ -1,5 +1,7 @@
 # 2018 Fall CS4501 Project
 
+## Group members
+
 > Group member 1:
 > 
 > Name: Liutong Chen
@@ -12,13 +14,7 @@
 > 
 > ComputingID: fc5kk
 
-
-
-
-
-## Project2
-
-Topic: University Accommodation office
+## Topic: University Accommodation office
 
 Models:
 
@@ -31,15 +27,3 @@ Description:
 > Every student is living in a room recorded by a lease
 >
 > Every hall has a manager
-
-
-## API examples:
-List the halls: /myapp/hall/list
-
-Create a new hall: /myapp/hall/create
-by POSTing { "name" : "name1", "address" : "add1"}
-
-Delete a hall with pk=2: /myapp/hall/delete/2
-
-Update a hall with pk=1: /myapp/hall/update/1
-by POSTing { "name" : "name2", "address" : "add2"}
