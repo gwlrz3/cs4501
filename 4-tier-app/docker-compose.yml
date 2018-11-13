@@ -55,5 +55,5 @@ batch:
     - es:es
   volumes:
     - ./batch_layer:/app
-  #command: bash -c "cd /app && python consumer.py
+  command: bash -c "cd /app && python consumer.py"
 
