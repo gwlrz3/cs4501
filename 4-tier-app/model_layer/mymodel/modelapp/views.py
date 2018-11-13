@@ -133,10 +133,11 @@ def room_create(request):
     form = forms.RoomForm(json.loads(request.body.decode()))
 
     if form.is_valid():
-        form.save()
+        room = form.save()
         response = {
             "res_code": 1,
-            "res_message": "Room Create Successfully"
+            "res_message": "Room Create Successfully",
+            "id" : room.id
         }
         return HttpResponse(json.dumps(response), content_type='application/json')
     else:
