@@ -4,14 +4,10 @@ from django.core import serializers
 import requests
 import urllib.parse
 
-
+from kafka import KafkaProducer
+from elasticsearch import Elasticsearch
 import json
-
-
-# def most_expensive_rooms(request):
-# 	data = models.Room.objects.all().order_by(OrderBy(RawSQL("cast(data->>%s as integer)", ("price",)), descending=True))
-#     data_json = serializers.serialize('json', data)
-#     return HttpResponse(data_json, content_type='application/json')
+import time
 
 
 def allHall(request):
@@ -51,6 +47,10 @@ def addRoom(request):
     resp = resp.json()
 
     if resp["res_code"] == 1:
+        #if succeed, post data to kafka
+        producer = KafkaProducer(bootstrap_servers='kafka:9092')
+        data['id'] = resp['id']
+        producer.send('newListing', json.dumps(data).encode('utf-8'))
         return HttpResponse(json.dumps(resp), content_type='application/json')
     else:
         return HttpResponse(json.dumps({
@@ -112,6 +112,38 @@ def logout(request):
     data = json.loads(request.body.decode("utf-8"))
     resp = requests.post("http://models-api:8000/modelapp/authenticator/delete", json=data)
     return HttpResponse(resp, content_type='application/json')
+
+def search(request):
+    queryBody = json.loads(request.body.decode("utf-8"))
+    es = Elasticsearch(['es'])
+
+    #if index does not exist in es, inject data from database into es for searching
+    if not es.indices.exists('listing_index'):
+        resp = requests.get("http://models-api:8000/modelapp/room/list")
+        resp = resp.json()
+        producer = KafkaProducer(bootstrap_servers='kafka:9092')
+        for ele in resp:
+            room = {
+                'id' : ele['pk'],
+                'hall' : ele['fields']['hall'],
+                'room_no' : ele['fields']['room_no'],
+                'price' : ele['fields']['price'],
+            }
+            producer.send('newListing', json.dumps(room).encode('utf-8'))
+
+    success = False
+    while not success:
+        try:
+            result = es.search(index='listing_index', body={'query': {'query_string': {'query': queryBody["keyword"]}}, 'size': queryBody["size"]})
+            success = True
+            break
+        except:
+            time.sleep(5)
+            success = False
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+
 
 
 

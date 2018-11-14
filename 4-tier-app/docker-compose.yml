@@ -1,54 +1,86 @@
-models:
-  image: tp33/django
-  container_name: models
-  external_links:
-    - mysql:db
-  ports:
-    - "8001:8000"
-  volumes:
-    - ./model_layer:/app
-  command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
+version: '2'
 
-exp:
-  image: tp33/django
-  container_name: exp
-  links:
-    - models:models-api
-  ports:
-    - "8002:8000"
-  volumes:
-    - ./exp_layer:/app
-  command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myexp --reload-on-changes /app/myexp/myexp/wsgi.py"
+networks:
+    mynet:
+      external:
+        name: mynet
 
-web:
-  image: tp33/django
-  container_name: web
-  links:
-    - exp:exp-api
-  ports:
-    - "8000:8000"
-  volumes:
-    - ./web_layer:/app
-  command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
+services:
 
-kafka:
-   image: spotify/kafka
-   container_name: kafka
-   environment:
-      ADVERTISED_HOST: kafka
-      ADVERTISED_PORT: 9092
-   hostname: kafka
+  models:
+    image: tp33/django
+    container_name: models
+    external_links:
+      - mysql:db
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./model_layer:/app
+    networks:
+      - mynet
+    command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
 
-es:
-   image: elasticsearch:2.0
-   container_name: es
-   ports:
-      - "9200:9200"
-
-batch:
-   image: tp33/django
-   container_name: batch
-   links:
+  exp:
+    image: tp33/django
+    container_name: exp
+    links:
+      - models:models-api
       - kafka:kafka
       - es:es
-      #
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./exp_layer:/app
+    networks:
+      - mynet
+    command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myexp --reload-on-changes /app/myexp/myexp/wsgi.py"
+
+  web:
+    image: tp33/django
+    container_name: web
+    links:
+      - exp:exp-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./web_layer:/app
+    networks:
+      - mynet
+    command: bash -c "pip install requests && mod_wsgi-express start-server --working-directory /app/myweb --reload-on-changes /app/myweb/myweb/wsgi.py"
+
+  batch:
+    image: tp33/django
+    container_name: batch
+    links:
+      - kafka:kafka
+      - es:es
+    depends_on:
+      - kafka
+      - es
+    volumes:
+      - ./batch_layer:/app
+    networks:
+      - mynet
+    command: bash -c "cd /app && python consumer.py"
+
+  kafka:
+    image: spotify/kafka
+    container_name: kafka
+    environment:
+      ADVERTISED_HOST: kafka
+      ADVERTISED_PORT: 9092
+    hostname: kafka
+    networks:
+      - mynet
+
+  es:
+    image: elasticsearch:2.0
+    container_name: es
+    ports:
+      - "9200:9200"
+    networks:
+      - mynet
+
+
+
+
