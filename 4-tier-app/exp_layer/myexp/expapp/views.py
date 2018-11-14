@@ -115,7 +115,7 @@ def logout(request):
 def search(request):
     queryBody = json.loads(request.body.decode("utf-8"))
     es = Elasticsearch(['es'])
-    result = es.search(index='listing_index', body={'query': {'query_string': {'query': queryBody['keyword']}}, 'size': queryBody['size']})
+    result = es.search(index='listing_index', body={'query': {'query_string': {'query': queryBody["keyword"]}}, 'size': queryBody["size"]})
     return HttpResponse(json.dumps(result), content_type='application/json')
 
 
