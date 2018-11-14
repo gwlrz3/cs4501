@@ -1,14 +1,19 @@
 from kafka import KafkaConsumer
 from elasticsearch import Elasticsearch
 import json
+import time
 
-consumer = KafkaConsumer('newListing', group_id='listing-indexer', bootstrap_servers=['kafka:9092'], api_version = '0.9')
+success = False
+while not success:
+	try:
+		consumer = KafkaConsumer('newListing', group_id='listing-indexer', bootstrap_servers=['kafka:9092'])
+		success = True
+		break
+	except:
+		time.sleep(5)
+		success = False
+
 es = Elasticsearch(['es'])
-# try:
-# 	resp = es.indices.create(index='listing_index')
-
-# except:
-# 	print("error")
 
 
 for message in consumer:

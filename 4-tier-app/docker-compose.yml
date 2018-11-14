@@ -61,7 +61,7 @@ services:
       - ./batch_layer:/app
     networks:
       - mynet
-    command: bash -c "cd /app && sh ./wait-for.sh kafka:9092 -t 120 && python consumer.py"
+    command: bash -c "cd /app && python consumer.py"
 
   kafka:
     image: spotify/kafka
