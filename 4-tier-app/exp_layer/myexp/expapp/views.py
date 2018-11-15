@@ -131,10 +131,11 @@ def search(request):
             }
             producer.send('newListing', json.dumps(room).encode('utf-8'))
 
+    #loop until search succeeds
     success = False
     while not success:
         try:
-            result = es.search(index='listing_index', body={'query': {'query_string': {'query': queryBody["keyword"]}}, 'size': queryBody["size"]})
+            result = es.search(index='listing_index', body={'query': {'query_string': {'query': queryBody["keyword"]}}})
             success = True
             break
         except:
