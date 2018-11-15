@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpRequest
 from django.core import serializers
 import requests
 import urllib.parse
-from .forms import LoginForm, RegisterForm, RoomForm
+from .forms import LoginForm, RegisterForm, RoomForm, SearchForm
 from . import views
 import json
 
@@ -157,7 +157,7 @@ def logout(request):
     resp = requests.post("http://exp-api:8000/expapp/logout", json={"authenticator": auth})
     resp = resp.json()
     if resp['res_code'] == 1:
-        response = render_to_response('home.html')
+        response = redirect('/home')
         response.delete_cookie("auth")
         return response
 
@@ -173,15 +173,27 @@ def search(request):
 
     keyword = form.cleaned_data["keyword"]
 
-    resp = requests.post("http://exp-api:8000/expapp/add/room", json={
-        "hall": hall_no,
-        "room_no": room_no,
-        "price": price
+    resp = requests.post("http://exp-api:8000/expapp/search", json={
+        "keyword": keyword
     })
 
     resp = resp.json()
 
-    if resp["res_code"] == 0:
-        return redirect('webapp/info/room')
+    data = []
 
-    return redirect('/webapp/info/room')
+    for r in resp["hits"]["hits"]:
+        obj = {}
+        obj["id"] = r["_source"]["id"]
+        obj["hall"] = r["_source"]["hall"]
+        obj["room_no"] = r["_source"]["room_no"]
+        obj["price"] = r["_source"]["price"]
+        data.append(obj)
+
+    auth = request.COOKIES.get('auth')
+
+    if auth:
+        res = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        res = res.json()
+        username = res["username"]
+
+    return render(request, 'search_result.html', {'objects': data, 'username': username})
