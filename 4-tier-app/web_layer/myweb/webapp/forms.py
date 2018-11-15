@@ -15,3 +15,9 @@ class RoomForm(forms.Form):
     hall = forms.IntegerField(label='Hall')
     room_no = forms.IntegerField(label='Room')
     price = forms.IntegerField(label='Price')
+
+
+class SearchForm(forms.Form):
+    keyword = forms.CharField(max_length=100)
+
+

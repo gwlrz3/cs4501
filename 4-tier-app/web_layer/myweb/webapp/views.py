@@ -46,7 +46,15 @@ def manager(request):
 def room(request):
     req = requests.get("http://exp-api:8000/expapp/showall/room")
     data = req.json()
-    return render(request, 'room.html', {'objects': data})
+
+    auth = request.COOKIES.get('auth')
+
+    if auth:
+        res = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        res = res.json()
+        username = res["username"]
+
+    return render(request, 'room.html', {'objects': data, 'username': username})
 
 
 def room_add(request):
@@ -86,7 +94,7 @@ def lease(request):
 
 def login(request):
     if request.method == 'GET':
-        next = request.GET.get('next')
+        # next = request.GET.get('next')
         return render(request, 'login.html')
 
     form = LoginForm(request.POST)
@@ -103,13 +111,13 @@ def login(request):
     })
 
     res = res.json()
-    next = form.cleaned_data.get('next')
+    # next = form.cleaned_data.get('next')
 
     if res['res_code'] == 1:
-        response = redirect('webapp/home', {'username': username})
+        response = redirect('/home', {'username': username})
 
-        if next is not None:
-            response = redirect('webapp/' + str(next))
+        # if next is not None:
+        #     response = redirect('webapp/' + str(next))
 
         response.set_cookie("auth", res["authenticator"])
         return response
@@ -154,3 +162,26 @@ def logout(request):
         return response
 
     return render(request, 'home.html')
+
+
+def search(request):
+
+    form = SearchForm(request.POST)
+    # check whether it's valid:
+    if not form.is_valid():
+        return redirect('/home')
+
+    keyword = form.cleaned_data["keyword"]
+
+    resp = requests.post("http://exp-api:8000/expapp/add/room", json={
+        "hall": hall_no,
+        "room_no": room_no,
+        "price": price
+    })
+
+    resp = resp.json()
+
+    if resp["res_code"] == 0:
+        return redirect('webapp/info/room')
+
+    return redirect('/webapp/info/room')
