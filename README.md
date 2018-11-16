@@ -37,15 +37,20 @@ Description:
 ``` shell
 > docker pull mysql:5.7.23
 > mkdir ~/cs4501/db
-docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.23
-docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash
-mysql -uroot -p'$3cureUS' -h db
-create user 'www'@'%' identified by '$3cureUS';
-create database cs4501 character set utf8;
-grant all on cs4501.* to 'www'@'%';
+> docker run --name mysql -d -e MYSQL_ROOT_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.23
+> docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash
+> mysql -uroot -p'$3cureUS' -h db
+> create user 'www'@'%' identified by '$3cureUS';
+> create database cs4501 character set utf8;
+> grant all on cs4501.* to 'www'@'%';
 ```
-4. Go the /cs4501/4-tier-app/
-5. 
+4. Create Docker network
+```
+> docker create mynet
+> docker network connect mynet mysql
+```
+5. Go the /cs4501/4-tier-app/
+6. Run the service
 ```
 docker-compose up
 ```
