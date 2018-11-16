@@ -45,7 +45,6 @@ create database cs4501 character set utf8;
 grant all on cs4501.* to 'www'@'%';
 ```
 4. Go the /cs4501/4-tier-app/
-5.
-```
+5.```
 docker-compose up
 ```
