@@ -9,6 +9,7 @@ from django.conf import settings
 import os
 import hmac
 import datetime
+from django.contrib.auth.hashers import make_password, check_password
 
 
 def hall_list(request):
@@ -195,7 +196,7 @@ def user_create(request):
     data = json.loads(request.body.decode())
     form = forms.UserForm(data)
     username = data['username']
-    password = data['password']
+
 
     u = models.User.objects.filter(username = username).first()
     if u != None:
@@ -244,7 +245,7 @@ def user_authenticate(request):
 
     user = get_object_or_404(models.User, username = form.cleaned_data['username'])
 
-    if user.password == form.cleaned_data['password']:
+    if form.cleaned_data['password'] == user.password:
         response = {
             "res_code": 1,
             "res_message": 'authentication succeeds'
