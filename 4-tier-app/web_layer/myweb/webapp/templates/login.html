@@ -20,10 +20,19 @@
         <h1 class="h2">Login</h1>
     </div>
 
+    {% if error_msg %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Oops</strong> {{ error_msg }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+
     <div class="row">
       <div class="col-6 col-md-4"></div>
       <div class="col-6 col-md-4">
-          <form action="/webapp/login" method="post">
+          <form action="/login" method="post">
           <div class="form-group">
             <label for="username">Account</label>
             <input type="text" class="form-control" id="username" placeholder="Username" name="username">
@@ -33,7 +42,7 @@
             <input type="password" class="form-control" id="password" placeholder="Password" name="password">
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
-              <a href="/webapp/register"><button type="button" class="btn btn-outline-primary">Register</button></a>
+              <a href="/register"><button type="button" class="btn btn-outline-primary">Register</button></a>
         </form>
 
       </div>

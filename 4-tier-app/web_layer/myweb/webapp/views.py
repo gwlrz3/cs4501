@@ -123,8 +123,9 @@ def login(request):
 
         response.set_cookie("auth", res["authenticator"])
         return response
-
-    return render(request, 'login.html')
+    else:
+        response = render_to_response('login.html', {'error_msg': res["res_message"]})
+        return response
 
 
 def register(request):
@@ -147,11 +148,12 @@ def register(request):
     res = res.json()
 
     if res['res_code'] == 1:
-        response = render_to_response('home.html', {'username': username})
+        response = redirect('/home', {'username': username})
         response.set_cookie("auth", res["authenticator"])
         return response
-
-    return render(request, 'register.html')
+    else:
+        response = render_to_response('register.html', {'error_msg': res["res_message"]})
+        return response
 
 
 def logout(request):
