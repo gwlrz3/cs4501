@@ -50,9 +50,11 @@ def room(request):
     auth = request.COOKIES.get('auth')
 
     if auth:
-        res = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
-        res = res.json()
-        username = res["username"]
+        resp = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        resp = resp.json()
+        username = resp["username"]
+    else:
+        username = None
 
     return render(request, 'room.html', {'objects': data, 'username': username})
 
@@ -195,5 +197,7 @@ def search(request):
         res = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
         res = res.json()
         username = res["username"]
+    else:
+        username = None
 
     return render(request, 'search_result.html', {'objects': data, 'username': username})

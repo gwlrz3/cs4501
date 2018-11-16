@@ -26,14 +26,15 @@
 
       <ul class="navbar-nav px-3">
         {% if username == null %}
-        <li class="nav-item text-nowrap">
-          <a href="/login">Register/Login</a>
-        </li>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <a href="/register"><button type="button" class="btn btn-light">Register</button></a>
+          <a href="/login"><button type="button" class="btn btn-primary">Login</button></a>
+        </div>
         {% else %}
 
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a><button type="button" class="btn btn-secondary">{{username}}</button></a>
-          <a href="/logout"><button type="button" class="btn btn-secondary">Logout</button></a>
+          <a><button type="button" class="btn btn-light">{{username}}</button></a>
+          <a href="/logout"><button type="button" class="btn btn-warning">Logout</button></a>
         </div>
 
           {% endif %}
@@ -94,10 +95,6 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
-
-          </div>
 
             {% block body_block %} {% endblock %}
 
