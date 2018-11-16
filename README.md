@@ -52,5 +52,5 @@ Description:
 5. Go the /cs4501/4-tier-app/
 6. Run the service
 ```
-docker-compose up
+> docker-compose up
 ```
