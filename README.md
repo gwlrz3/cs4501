@@ -31,9 +31,9 @@ Description:
 
 ## To Start with
 
-1. Go to https://github.com/gwlrz3/cs4501 to clone the repo.
-2. Install Docker on yout computer(Recommend macOS).
-3. Paste and run the code:
+1.Go to https://github.com/gwlrz3/cs4501 to clone the repo.
+2.Install Docker on yout computer(Recommend macOS).
+3.Paste and run the code:
 ``` shell
 docker pull mysql:5.7.23
 mkdir ~/cs4501/db
@@ -44,7 +44,8 @@ create user 'www'@'%' identified by '$3cureUS';
 create database cs4501 character set utf8;
 grant all on cs4501.* to 'www'@'%';
 ```
-4. Go the /cs4501/4-tier-app/
-5.```
+4.Go the /cs4501/4-tier-app/
+5.
+```
 docker-compose up
 ```
