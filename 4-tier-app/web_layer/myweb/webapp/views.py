@@ -63,12 +63,12 @@ def room_add(request):
     auth = request.COOKIES.get('auth')
 
     if auth is None:
-        return redirect('/webapp/login?next=info/room')
+        return redirect('/login')
 
     form = RoomForm(request.POST)
     # check whether it's valid:
     if not form.is_valid():
-        return redirect('/webapp/home')
+        return redirect('/home')
 
     hall_no = form.cleaned_data["hall"]
     room_no = form.cleaned_data["room_no"]
@@ -82,10 +82,11 @@ def room_add(request):
 
     resp = resp.json()
 
-    if resp["res_code"] == 0:
-        return redirect('webapp/info/room')
-
-    return redirect('/webapp/info/room')
+    if resp["res_code"] == 1:
+        return redirect('/info/room')
+    else:
+        response = render_to_response('room.html', {'error_msg': resp["res_message"]})
+        return response
 
 
 def lease(request):
@@ -117,10 +118,8 @@ def login(request):
 
     if res['res_code'] == 1:
         response = redirect('/home', {'username': username})
-
         # if next is not None:
         #     response = redirect('webapp/' + str(next))
-
         response.set_cookie("auth", res["authenticator"])
         return response
     else:
