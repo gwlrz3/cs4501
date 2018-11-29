@@ -25,7 +25,7 @@ SECRET_KEY = '^9r#513!jays$g$64ixlfgvdbk4_tvb!512!0u(7m@)+t$@n4r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'exp-api']
+ALLOWED_HOSTS = ['localhost', 'exp-api', '142.93.118.239']
 
 
 # Application definition
