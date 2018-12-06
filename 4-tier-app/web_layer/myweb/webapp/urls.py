@@ -6,8 +6,6 @@ from . import views
 app_name = 'webapp'
 urlpatterns = [
 
-    url(r'', views.home, name='home'),
-
     url(r'info/hall', views.hall, name='hall'),
 
     url(r'info/advisor', views.advisor, name='advisor'),
@@ -27,6 +25,7 @@ urlpatterns = [
 
     url(r'search', views.search, name='search'),
 
+    url(r'', views.home, name='home'),
 
 ]
 
