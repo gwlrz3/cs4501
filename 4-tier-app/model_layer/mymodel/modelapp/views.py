@@ -243,20 +243,29 @@ def user_authenticate(request):
             }
         return HttpResponse(json.dumps(response), content_type='application/json')
 
-    user = get_object_or_404(models.User, username = form.cleaned_data['username'])
+    # user = get_object_or_404(models.User, username = form.cleaned_data['username'])
 
-    if form.cleaned_data['password'] == user.password:
-        response = {
-            "res_code": 1,
-            "res_message": 'authentication succeeds'
+    try:
+        user = get_object_or_404(models.User, username=form.cleaned_data['username'])
+
+        if form.cleaned_data['password'] == user.password:
+            response = {
+                "res_code": 1,
+                "res_message": 'authentication succeeds'
             }
-        return HttpResponse(json.dumps(response), content_type='application/json')
-    else:
-        response = {
+            return HttpResponse(json.dumps(response), content_type='application/json')
+        else:
+            response = {
+                "res_code": 0,
+                "res_message": 'Wrong password'
+            }
+            return HttpResponse(json.dumps(response), content_type='application/json')
+
+    except:
+        return HttpResponse(json.dumps({
             "res_code": 0,
-            "res_message": 'Wrong password'
-            }
-        return HttpResponse(json.dumps(response), content_type='application/json')
+            "res_message": 'User does not exist'
+            }), content_type='application/json')
 
 
 def authenticator_list(request):
