@@ -172,7 +172,7 @@ def search(request):
     form = SearchForm(request.POST)
     # check whether it's valid:
     if not form.is_valid():
-        return redirect('/home')
+        return render(request, 'search_result.html')
 
     keyword = form.cleaned_data["keyword"]
 
