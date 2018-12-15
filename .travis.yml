@@ -11,4 +11,4 @@ install:
 - docker-compose up
 
 script:
-- docker exec -it model bash
+- docker exec -it models bash
