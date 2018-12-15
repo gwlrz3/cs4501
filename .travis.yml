@@ -6,6 +6,7 @@ services:
 - docker
 
 install:
+- docker network create mynet
 - cd 4-tier-app
 - docker-compose up
 
