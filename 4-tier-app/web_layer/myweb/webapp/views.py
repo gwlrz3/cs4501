@@ -22,25 +22,62 @@ def home(request):
 def hall(request):
     req = requests.get("http://exp-api:8000/expapp/showall/hall")
     data = req.json()
-    return render(request, 'hall.html', {'objects': data})
+
+    auth = request.COOKIES.get('auth')
+    if auth:
+        resp = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        resp = resp.json()
+        username = resp["username"]
+    else:
+        username = None
+
+    return render(request, 'hall.html', {'objects': data, 'username': username})
 
 
 def advisor(request):
     req = requests.get("http://exp-api:8000/expapp/showall/advisor")
     data = req.json()
-    return render(request, 'advisor.html', {'objects': data})
+
+    auth = request.COOKIES.get('auth')
+    if auth:
+        resp = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        resp = resp.json()
+        username = resp["username"]
+    else:
+        username = None
+
+    return render(request, 'advisor.html', {'objects': data, 'username': username})
 
 
 def student(request):
     req = requests.get("http://exp-api:8000/expapp/showall/student")
     data = req.json()
-    return render(request, 'student.html', {'objects': data})
+
+    auth = request.COOKIES.get('auth')
+    if auth:
+        resp = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        resp = resp.json()
+        username = resp["username"]
+    else:
+        username = None
+
+    return render(request, 'student.html', {'objects': data, 'username': username})
 
 
 def manager(request):
     req = requests.get("http://exp-api:8000/expapp/showall/manager")
     data = req.json()
-    return render(request, 'manager.html', {'objects': data})
+
+    auth = request.COOKIES.get('auth')
+
+    if auth:
+        resp = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        resp = resp.json()
+        username = resp["username"]
+    else:
+        username = None
+
+    return render(request, 'manager.html', {'objects': data, 'username': username})
 
 
 def room(request):
@@ -48,7 +85,6 @@ def room(request):
     data = req.json()
 
     auth = request.COOKIES.get('auth')
-
     if auth:
         resp = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
         resp = resp.json()
@@ -92,7 +128,16 @@ def room_add(request):
 def lease(request):
     req = requests.get("http://exp-api:8000/expapp/showall/lease")
     data = req.json()
-    return render(request, 'lease.html', {'objects': data})
+
+    auth = request.COOKIES.get('auth')
+    if auth:
+        resp = requests.post("http://exp-api:8000/expapp/read_user", json={"authenticator": auth})
+        resp = resp.json()
+        username = resp["username"]
+    else:
+        username = None
+
+    return render(request, 'lease.html', {'objects': data, 'username': username})
 
 
 def login(request):
