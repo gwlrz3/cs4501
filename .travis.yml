@@ -16,5 +16,5 @@ install:
 
 
 script:
-- cd 4-tier-app
+- cd 4-tier-app/
 - docker-compose up
