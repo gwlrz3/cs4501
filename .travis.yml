@@ -5,7 +5,7 @@ python:
 services:
 - docker
 
-before_install:
+install:
 - mkdir ~/cs4501
 - mkdir ~/cs4501/db
 
@@ -14,8 +14,7 @@ before_install:
     -d 
     -e MYSQL_ROOT_PASSWORD='$3cureUS' 
     -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.23
-
-install:
+    
 - mysql -uroot -p'$3cureUS' -h db
 - create user 'www'@'%' identified by '$3cureUS';
 - create database cs4501 character set utf8;
