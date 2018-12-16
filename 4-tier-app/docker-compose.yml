@@ -18,7 +18,7 @@ services:
       - ./model_layer:/app
     networks:
       - mynet
-    command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
+    command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && python manage.py test && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
 
   exp:
     image: tp33/django
@@ -80,7 +80,5 @@ services:
       - "9200:9200"
     networks:
       - mynet
-
-
 
 
