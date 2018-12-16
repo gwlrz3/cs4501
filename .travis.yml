@@ -4,7 +4,7 @@ services:
 - docker
 
 env:
-  password=$3cureUS
+  password=\$3cureUS
 
 install:
 - docker pull mysql:5.7.23
