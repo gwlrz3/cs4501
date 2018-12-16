@@ -1,9 +1,5 @@
 language: python
 
-env:
-  global:
-    - MYSQL_ROOT_PASSWORD = $3cureUS
-
 before_install:
 - docker pull mysql:5.7.23
 - mkdir ~/cs4501
@@ -15,7 +11,7 @@ before_install:
 
 
 install:
-- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "mysql -uroot -p${MYSQL_ROOT_PASSWORD} -h db"
+- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "mysql -username='root' -password='$3cureUS' -h db"
 - docker exec -it mysql-cmdline bash -c "create user 'www'@'%' identified by '$3cureUS';"
 - docker exec -it mysql-cmdline bash -c "create database cs4501 character set utf8;"
 - docker exec -it mysql-cmdline bash -c "grant all on cs4501.* to 'www'@'%';"
