@@ -8,12 +8,13 @@ before_install:
 - sleep 15
 - docker network create mynet
 - docker network connect mynet mysql
+- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23
 
 install:
-- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "mysql -uroot -p'$3cureUS' -h db"
-- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "create user 'www'@'%' identified by '$3cureUS';"
-- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "create database cs4501 character set utf8;"
-- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "grant all on cs4501.* to 'www'@'%';"
+- docker exec -it mysql-cmdline bash -c "mysql -uroot -p'$3cureUS' -h db"
+- docker exec -it mysql-cmdline bash -c "create user 'www'@'%' identified by '$3cureUS';"
+- docker exec -it mysql-cmdline bash -c "create database cs4501 character set utf8;"
+- docker exec -it mysql-cmdline bash -c "grant all on cs4501.* to 'www'@'%';"
 
 script:
 - docker-compose up
