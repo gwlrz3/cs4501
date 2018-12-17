@@ -20,3 +20,6 @@ script:
 - cd 4-tier-app/
 - docker ps -a
 - docker-compose up
+
+after_script:
+- docker-compose rm
