@@ -19,4 +19,4 @@ install:
 script:
 - cd 4-tier-app/
 - docker ps -a
-- docker-compose -d up
+- docker-compose up -d
