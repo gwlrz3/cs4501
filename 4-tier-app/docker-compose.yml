@@ -18,7 +18,7 @@ services:
       - ./model_layer:/app
     networks:
       - mynet
-    command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
+    command: bash -c "cd /app/mymodel && python manage.py makemigrations modelapp && python manage.py migrate && python manage.py loaddata data.json && python manage.py test && mod_wsgi-express start-server --reload-on-changes /app/mymodel/mymodel/wsgi.py"
 
   exp:
     image: tp33/django
@@ -98,4 +98,3 @@ services:
     volumes:
     - ./selenium:/app
     command: bash -c "pip install selenium && python unittest.py"
-

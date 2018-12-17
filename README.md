@@ -46,7 +46,7 @@ Description:
 ```
 4. Create Docker network
 ```
-> docker create mynet
+> docker network create mynet
 > docker network connect mynet mysql
 ```
 5. Go the /cs4501/4-tier-app/
