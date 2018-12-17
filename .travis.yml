@@ -5,7 +5,7 @@ services:
 
 env:
   global:
-    password=\$
+    password=\$3cureUS
 
 install:
 - docker pull mysql:5.7.23
@@ -14,7 +14,7 @@ install:
 - docker run -it --name mysql -d -e MYSQL\_ROOT\_PASSWORD=$password -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.23
 - echo $password
 - sleep 15
-- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "mysql -uroot -p$password -h db << 'create user 'www'@'%' identified by '$password';create database cs4501 character set utf8;grant all on cs4501.* to 'www'@'%';'"
+- docker run -it --name mysql-cmdline --link mysql:db mysql:5.7.23 bash -c "mysql -uroot -p$password -h db << 'create user 'www'@'%' identified by $password;create database cs4501 character set utf8;grant all on cs4501.* to 'www'@'%';'"
 
 - docker network create mynet
 - docker network connect mynet mysql
