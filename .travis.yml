@@ -5,7 +5,7 @@ services:
 
 env:
   global:
-    password=\$
+    password=\$3
 
 install:
 - docker pull mysql:5.7.23
