@@ -85,16 +85,20 @@ services:
     image: selenium/standalone-chrome
     container_name: selenium-chrome
     links:
-    - web:web
+      - web:web
     ports:
-    - "4444:4444"
+      - "4444:4444"
+    networks:
+      - mynet
 
   selenium-test:
     image: tp33/django
     container_name: selenium-test
     links:
-    - selenium-chrome:selenium-chrome
-    - web:web
+      - selenium-chrome:selenium-chrome
+      - web:web
     volumes:
-    - ./selenium:/app
+      - ./selenium:/app
+    networks:
+      - mynet
     command: bash -c "pip install selenium && python unittest.py"
